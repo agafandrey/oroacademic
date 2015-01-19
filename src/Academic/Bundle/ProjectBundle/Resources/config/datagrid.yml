@@ -1,0 +1,51 @@
+datagrid:
+    # contact groups grid, shown on orocrm_contact_group_index
+    academic-project-grid:
+        source:
+            type: orm
+            acl_resource: academic_project_list
+            query:
+                select:
+                    - p.id
+                    - p.name
+                from:
+                  - { table: %academic_project.project.entity.class%, alias: p }
+        columns:
+            name:
+                label: academic.project.name.label
+        properties:
+            id: ~
+            update_link:
+                type:       url
+                route:      academic_project_project_update
+                params:     [ id ]
+            view_link:
+                type:       url
+                route:      academic_project_project_view
+                params:     [ id ]
+        sorters:
+            columns:
+                name:
+                    data_name: p.name
+        filters:
+            columns:
+                name:
+                    type:      string
+                    data_name: p.name
+        actions:
+            view:
+                type:          navigate
+                acl_resource:  academic_project_project_view
+                label:         oro.grid.action.view
+                icon:          eye-open
+                link:          view_link
+                rowAction:     true
+            update:
+                type:          navigate
+                acl_resource:  academic_project_project_update
+                label:         oro.grid.action.update
+                icon:          edit
+                link:          update_link
+        options:
+            entityHint: project
+            entity_pagination: true

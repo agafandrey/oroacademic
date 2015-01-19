@@ -1,0 +1,31 @@
+oro_menu_config:
+    items:
+        project_tab:
+            label: Project
+            uri:   '#'
+            extras:
+                position: 300
+        project_tab_project_list:
+            label: Project List
+            route: academic_project_project_list
+            extras:
+                routes: ['/^list/']
+                description: Project list
+        project_tab_project_create:
+                    label: Project Create
+                    route: academic_project_project_create
+                    extras:
+                        routes: ['/^create/']
+                        description: Projects
+    tree:
+        application_menu:
+            children:
+                project_tab:
+                    children:
+                        project_tab_project_list: ~
+                        project_tab_project_create: ~
+
+oro_titles:
+    academic_project_project_list: Projects
+    academic_project_project_create: Create Project
+    academic_project_project_update: Edit Project

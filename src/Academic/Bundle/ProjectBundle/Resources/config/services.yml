@@ -1,0 +1,28 @@
+parameters:
+#    academic_project.example.class: Academic\Bundle\ProjectBundle\Example
+    academic_project.handler.project.class: Academic\Bundle\ProjectBundle\Form\Handler\ProjectHandler
+    academic_project.type.project.class:  Academic\Bundle\ProjectBundle\Form\Type\ProjectType
+    academic_project.project.entity.class:  Academic\Bundle\ProjectBundle\Entity\Project
+
+services:
+#    academic_project.example:
+#        class: %academic_project.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+    academic_project.form.project:
+            class: Symfony\Component\Form\Form
+            factory_method: createNamed
+            factory_service: form.factory
+            arguments: ["academic_project_project_form", "academic_project"]
+
+    academic_project.form.handler.project:
+            class: %academic_project.handler.project.class%
+            scope: request
+            arguments:
+                - @academic_project.form.project
+                - @request
+                - @doctrine.orm.entity_manager
+
+    academic_project.form.type.project:
+        class: %academic_project.type.project.class%
+        tags:
+            - { name: form.type, alias: academic_project }

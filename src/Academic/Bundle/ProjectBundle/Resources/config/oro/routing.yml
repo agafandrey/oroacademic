@@ -1,0 +1,4 @@
+academic_project:
+    resource: "@AcademicProjectBundle/Controller"
+    type:     annotation
+    prefix:   /project

@@ -1,0 +1,49 @@
+{% extends 'OroUIBundle:actions:view.html.twig' %}
+
+{% oro_title_set({params : {"%project.name%": entity.name|default('N/A')} }) %}
+
+{% block navButtons %}
+    {% if resource_granted('EDIT', entity) %}
+        {{ UI.editButton({
+        'path': path('academic_project_project_update', {'id': entity.id}),
+        'entity_label': 'academic.project.entity_label'|trans
+        }) }}
+    {% endif %}
+{% endblock navButtons %}
+
+{% block pageHeader %}
+    {% set breadcrumbs = {
+    'entity': entity,
+    'indexPath': path('academic_project_project_list'),
+    'indexLabel': 'academic.project.entity_plural_label'|trans,
+    'entityTitle': entity.name|default('N/A')
+    } %}
+    {{ parent() }}
+{% endblock pageHeader %}
+
+{% block content_data %}
+    {% set projectInformationWidget %}
+        {{ oro_widget_render({
+            'widgetType': 'block',
+            'title': 'academic.project.widgets.project_information'|trans,
+            'url': path('academic_project_widget_info', {id: entity.id})
+        }) }}
+    {% endset %}
+
+    {% set generalSectionBlocks = [{'data' : [projectInformationWidget]}]%}
+
+    {% set dataBlocks = [
+        {
+        'title': 'academic.project.sections.general'|trans,
+        'class': 'active',
+        'subblocks': generalSectionBlocks
+        }
+    ] %}
+
+    {% set id = 'projectView' %}
+    {% set data = {'dataBlocks': dataBlocks} %}
+
+    {{ parent() }}
+{% endblock content_data %}
+
+

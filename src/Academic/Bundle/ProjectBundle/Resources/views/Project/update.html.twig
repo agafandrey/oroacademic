@@ -1,0 +1,55 @@
+{% extends 'OroUIBundle:actions:update.html.twig' %}
+{% if form.vars.value.id %}
+    {% oro_title_set({params : {"%project.name%": form.vars.value.name} }) %}
+{% endif %}
+
+{% set formAction = form.vars.value.id ? path('academic_project_project_update', { id: form.vars.value.id }) : path('academic_project_project_create') %}
+
+{% block navButtons %}
+    {{ UI.cancelButton(path('academic_project_project_list')) }}
+    {% set html = UI.saveAndCloseButton() %}
+    {% if form.vars.value.id or resource_granted('academic_project_project_update') %}
+        {% set html = html ~ UI.saveAndStayButton() %}
+    {% endif %}
+    {{ UI.dropdownSaveButton({'html': html}) }}
+{% endblock navButtons %}
+
+{% block pageHeader %}
+    {% if form.vars.value.id %}
+        {% set breadcrumbs = {
+        'entity':      form.vars.value,
+        'indexPath':   path('academic_project_project_list'),
+        'indexLabel': 'academic.project.entity_plural_label'|trans,
+        'entityTitle': form.vars.value.name|default('N/A')
+        }
+        %}
+        {{ parent() }}
+    {% else %}
+        {% set title = 'oro.ui.create_entity'|trans({'%entityName%': 'academic.project.entity_label'|trans}) %}
+        {% include 'OroUIBundle::page_title_block.html.twig' with { title: title } %}
+    {% endif %}
+{% endblock pageHeader %}
+
+{% block content_data %}
+    {% set id = 'project-profile' %}
+    {% set dataBlocks = [{
+    'title': 'General'|trans,
+    'class': 'active',
+    'subblocks': [
+    {
+    'title': 'Basic Information'|trans,
+    'data': [
+    form_row(form.name),
+    form_row(form.summary)
+    ]
+    }
+    ]
+    }] %}
+
+    {% set data = {
+    'formErrors': form_errors(form)? form_errors(form) : null,
+    'dataBlocks': dataBlocks,
+    } %}
+    {{ UI.scrollData(id, data, form) }}
+{% endblock content_data %}
+

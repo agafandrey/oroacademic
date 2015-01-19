@@ -1,0 +1,16 @@
+{% import 'OroUIBundle::macros.html.twig' as UI %}
+{% import 'OroTagBundle::macros.html.twig' as tag %}
+{% import 'OroEntityConfigBundle::macros.html.twig' as entityConfig %}
+
+<div class="widget-content">
+    <div class="row-fluid form-horizontal">
+        <div class="responsive-block">
+            {{ UI.renderProperty('academic.project.name.label'|trans, project.name) }}
+            {{ UI.renderProperty('academic.project.summary.label'|trans, project.summary) }}
+        </div>
+
+        <div class="responsive-block">
+            {{ entityConfig.renderDynamicFields(project) }}
+        </div>
+    </div>
+</div>

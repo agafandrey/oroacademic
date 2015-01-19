@@ -1,0 +1,3 @@
+# src/Academic/Bundle/ProjectBundle/Resources/config/oro/bundles.yml
+bundles:
+    - Academic\Bundle\ProjectBundle\AcademicProjectBundle

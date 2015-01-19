@@ -1,0 +1,31 @@
+academic:
+    project:
+        entity_label: "Project"
+        entity_plural_label: "Projects"
+
+        issue:
+            entity_label: "Project Issue"
+            activity:
+                entity_label: "Activity"
+            comment:
+                entity_label: "Issue Comment"
+        issuestatus:
+            entity_label: "Issue Status"
+        issueresolution:
+            entity_label: "Issue Resolution"
+        issuepriority:
+            entity_label: "Issue Priority"
+
+
+        name.label:  "Project Name"
+        summary.label:  "Summary"
+
+        widgets:
+            project_information: "Project Information"
+
+        sections:
+            general: "General"
+
+        controller:
+            project:
+                saved.message: "The Project is successfuly saved"
